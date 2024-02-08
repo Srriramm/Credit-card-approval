@@ -15,9 +15,9 @@ import tempfile
 import json
 import requests
 from streamlit_lottie import st_lottie_spinner
-train_original = pd.read_csv('C:\Users\SRIRAM\Downloads\Prediction for Credit Card Approval-20240124T165003Z-001\Prediction for Credit Card Approval\train_data.csv')
+train_original = pd.read_csv('https://github.com/Srriramm/Credit-card-approval/blob/main/train_data.csv')
 
-test_original = pd.read_csv('C:\Users\SRIRAM\Downloads\Prediction for Credit Card Approval-20240124T165003Z-001\Prediction for Credit Card Approval\test_data.csv')
+test_original = pd.read_csv('https://github.com/Srriramm/Credit-card-approval/blob/main/test_data.csv')
 
 full_data = pd.concat([train_original, test_original], axis=0)
 
