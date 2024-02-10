@@ -444,23 +444,16 @@ def load_lottieurl(url: str):
 
 lottie_loading_an = load_lottieurl('https://assets3.lottiefiles.com/packages/lf20_szlepvdh.json')
 
+import joblib
+from pathlib import Path
 
+final_model_file_path = Path("saved_models_final/gradient_boosting/gradient_boosting_model.sav")
 def make_prediction():
-    # connect to s3 bucket
-    client = boto3.client('s3', aws_access_key_id=st.secrets["access_key"],aws_secret_access_key=st.secrets["secret_access_key"]) # for s3 API keys when deployed on streamlit share
-    #client = boto3.client('s3', aws_access_key_id='access_key',aws_secret_access_key='secret_access_key') # for s3 API keys when deployed on locally
+    model = joblib.load(final_model_file_path)
 
-    bucket_name = "creditapplipred"
-    key = "gradient_boosting_model.sav"
-
-    # load the model from s3 in a temporary file
-    with tempfile.TemporaryFile() as fp:
-        client.download_fileobj(Fileobj=fp, Bucket=bucket_name, Key=key)
-        fp.seek(0)
-        model = joblib.load(fp)
-
-    # prediction from the model on AWS S3
+    # prediction from the loaded model
     return model.predict(profile_to_pred_prep)
+    
 
 if predict_bt:
 
